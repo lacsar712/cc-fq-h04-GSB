@@ -69,7 +69,6 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { getJob, getJobStages } from '../api/client'
-import { sortStages } from '../utils/stageSort.js'
 
 const route = useRoute()
 const $q = useQuasar()
@@ -151,8 +150,7 @@ async function load() {
   try {
     const id = route.params.id
     job.value = await getJob(id)
-    if (job.value?.stages) job.value.stages = sortStages(job.value.stages)
-    stages.value = sortStages(await getJobStages(id))
+    stages.value = await getJobStages(id)
   } catch (e) {
     $q.notify({ type: 'negative', message: e.message || '加载失败' })
   } finally {

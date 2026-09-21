@@ -125,7 +125,7 @@ def get_job_stages(
     job = db.query(Job).filter(Job.id == job_id).first()
     if not job:
         raise HTTPException(status_code=404, detail="作业不存在")
-    return (
+    rows = (
         db.query(JobStage)
         .filter(JobStage.job_id == job_id)
         .order_by(JobStage.stage_order)

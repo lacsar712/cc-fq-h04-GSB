@@ -1,8 +1,12 @@
-"""BUG: reverse stage_order on create and on read."""
+"""Stage ordering policy: stage_order follows the Actor chain (Parse → Report).
+
+Reversal on create/read is disabled so persisted indices and API responses
+stay in ascending logical order.
+"""
 from __future__ import annotations
 
-REVERSE_ON_CREATE = True
-REVERSE_ON_READ = True
+REVERSE_ON_CREATE = False
+REVERSE_ON_READ = False
 
 
 def create_order_index(chain_len: int, logical_index: int) -> int:
